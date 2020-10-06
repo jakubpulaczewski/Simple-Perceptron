@@ -1,6 +1,7 @@
 import numpy as np
 
 # Constants
+
 TRAIN_FILE = "train.data"
 TEST_FILE = "test.data"
 CLASS_ONE = 'class-1'
@@ -29,7 +30,6 @@ class Perceptron():
   
     @x: the input values
     '''
-
     def calculate(self, x):
         return self.weights.T.dot(x) + self.bias
 
@@ -38,7 +38,6 @@ class Perceptron():
   
     @input: sum of values
     '''
-
     def predict(self, input):
         return 1.0 if input >= 0.0 else -1.0
 
@@ -49,7 +48,6 @@ class Perceptron():
   
     @input_array: the array that contains all datasets
     '''
-
     def test(self, input_array):
         # Initiliation the variables to 0
         true_positives = true_negatives = false_positives = false_negatives = precision = recall = accuracy = score = 0
@@ -68,17 +66,15 @@ class Perceptron():
                 false_positives += 1
             elif ((predicted == -1) & (desired_output[i] == 1)):
                 false_negatives += 1
-                # Zero Divison Error Exception Handling (using if statements)
+        # Zero Divison Error Exception Handling (using if statements)
         precision = 0 if ((true_positives == 0) or ((true_positives + false_positives) == 0)) else (
                     true_positives / (true_positives + false_positives))
         recall = 0 if ((true_positives == 0) or ((true_positives + false_positives) == 0)) else true_positives / (
                     true_positives + false_negatives)
         accuracy = 0 if (((true_positives + true_negatives) == 0) or (
                     (true_positives + true_negatives + false_positives + false_negatives) == 0)) else (
-                                                                                                              true_positives + true_negatives) / (
-                                                                                                                  true_positives + true_negatives + false_positives + false_negatives)
-        score = 0 if (((precision * recall) == 0) or ((precision + recall) == 0)) else (2 * precision * recall) / (
-                    precision + recall)
+                    true_positives + true_negatives) / ( true_positives + true_negatives + false_positives + false_negatives)
+        score = 0 if (((precision * recall) == 0) or ((precision + recall) == 0)) else (2 * precision * recall) / (precision + recall)
         # Outputting the results
         print("Precision: " + str(precision))
         print("Recall: " + str(recall))
@@ -91,7 +87,6 @@ class Perceptron():
     @input_array: the array that contains all datasets
     @gamma: the l2 regularisation only for question/task 7
     '''
-
     def train(self, input_array, gamma=0):
         # The dataset is split into two arrays (inputs) and (desired outputs)
         inputs = input_array[:, 0:4]
@@ -111,8 +106,6 @@ This method reads the file.
 @file: the name of file
 @return: the dataset
 '''
-
-
 def readData(file=TRAIN_FILE):
     with open(file) as myfile:
         data = myfile.read()
@@ -128,8 +121,6 @@ This method categorizes the dataset in 3 different classes such as class1, class
 @file: the name of file
 @return: the array for a given class
 '''
-
-
 def categorizeClass(class_number, data):
     r1, c1 = np.where(data == class_number)
     array = np.array(data[r1])
@@ -146,8 +137,6 @@ different desired output
 @class_A: first class
 @class_B: second class
 '''
-
-
 def adjust_DesiredOutput(class_A, class_B):
     class_A[:, -1] = -1
     class_B[:, -1] = 1
@@ -162,8 +151,6 @@ the rest classes have the same desired output.
 
 @classification_no: the number of class to be assigned unique desired output
 '''
-
-
 def multiClass_DesiredOutput(classification_no, class_A, class_B, class_C):
     if (classification_no == 1):
         class_A[:, -1] = 1
